@@ -78,7 +78,7 @@ export default function Hero() {
               className="w-1.5 h-1.5 rounded-full inline-block"
               style={{ background: "#d4af37" }}
             />
-            R/4361/2025 — Bar Council of Rajasthan
+            Criminal Law Specialist · Jodhpur
           </motion.div>
 
           {/* Heading with staggered reveal */}

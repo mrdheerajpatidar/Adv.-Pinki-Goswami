@@ -23,9 +23,6 @@ export default function Footer() {
             <p className="text-[#a3a3a3] text-sm">
               Criminal Lawyer · Jodhpur, Rajasthan
             </p>
-            <p className="text-[#a3a3a3] text-xs">
-              R/4361/2025 — Bar Council of Rajasthan
-            </p>
           </div>
 
           {/* Quick Links Column */}
