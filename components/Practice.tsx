@@ -1,71 +1,85 @@
-import { Shield, Gavel, FileText, Users, AlertTriangle, BookOpen } from "lucide-react";
+"use client";
 
-const areas = [
-  {
-    icon: Shield,
-    title: "Criminal Defence",
-    desc: "Bail, anticipatory bail, trial defence & acquittal proceedings across all criminal courts.",
-  },
-  {
-    icon: Gavel,
-    title: "Sessions Court Trials",
-    desc: "Serious criminal trials, sessions cases, and appeals at Jodhpur High Court.",
-  },
-  {
-    icon: FileText,
-    title: "FIR & Complaints",
-    desc: "FIR quashing petitions, complaint drafting & legal notice preparation.",
-  },
-  {
-    icon: Users,
-    title: "Family Criminal Matters",
-    desc: "Domestic violence, dowry harassment cases & protection order applications.",
-  },
-  {
-    icon: AlertTriangle,
-    title: "Anticipatory Bail",
-    desc: "Pre-arrest bail applications for clients facing imminent arrest threats.",
-  },
-  {
-    icon: BookOpen,
-    title: "Legal Consultation",
-    desc: "Expert legal advice on criminal matters, rights, and court procedures.",
-  },
-];
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  Shield,
+  Pill,
+  Key,
+  Heart,
+  Users,
+  FileText,
+  Gavel,
+  MessageCircle,
+  type LucideIcon,
+} from "lucide-react";
+import { practiceAreas } from "@/lib/constants";
+import { staggerContainer, fadeInUp } from "@/lib/animations";
+
+const iconMap: Record<string, LucideIcon> = {
+  Shield,
+  Pill,
+  Key,
+  Heart,
+  Users,
+  FileText,
+  Gavel,
+  MessageCircle,
+};
 
 export default function Practice() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <section id="practice" className="bg-zinc-50 py-20 lg:py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-14">
-          <p className="text-xs tracking-widest uppercase text-zinc-400 mb-4">Areas of Practice</p>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-black leading-tight">
-              Criminal Law Services
-            </h2>
-            <p className="text-zinc-500 text-sm max-w-xs">
-              Comprehensive criminal legal representation tailored to your situation.
-            </p>
-          </div>
+    <section id="practice" className="bg-[#0a0a0a] py-20 lg:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 text-center">
+          <p className="text-xs tracking-widest uppercase text-[#d4af37] mb-4">
+            Areas of Practice
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
+            Comprehensive Legal Services
+          </h2>
+          <p className="text-[#a3a3a3] text-sm mt-4 max-w-lg mx-auto">
+            Expert criminal defence and family law representation tailored to your situation.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {areas.map((area) => {
-            const Icon = area.icon;
+        <motion.div
+          variants={prefersReducedMotion ? undefined : staggerContainer}
+          initial={prefersReducedMotion ? undefined : "hidden"}
+          whileInView={prefersReducedMotion ? undefined : "show"}
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
+          {practiceAreas.map((area, i) => {
+            const Icon = iconMap[area.icon];
             return (
-              <div
+              <motion.div
                 key={area.title}
-                className="bg-white border border-zinc-200 rounded-lg p-6 hover:border-black hover:shadow-lg transition-all duration-200 group"
+                variants={prefersReducedMotion ? undefined : fadeInUp}
+                custom={i}
+                whileHover={
+                  prefersReducedMotion
+                    ? undefined
+                    : { scale: 1.02, borderColor: "rgba(212, 175, 55, 0.5)" }
+                }
+                className="bg-[#1a1a1a] border border-white/10 rounded-lg p-6 transition-shadow duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]"
               >
-                <div className="w-10 h-10 rounded-md bg-zinc-100 flex items-center justify-center mb-4 group-hover:bg-black transition-colors duration-200">
-                  <Icon className="w-5 h-5 text-zinc-700 group-hover:text-white transition-colors duration-200" />
+                <div className="w-10 h-10 rounded-md bg-[#d4af37]/10 flex items-center justify-center mb-4">
+                  {Icon && (
+                    <Icon className="w-5 h-5 text-[#d4af37]" />
+                  )}
                 </div>
-                <h3 className="font-semibold text-black text-sm mb-2">{area.title}</h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">{area.desc}</p>
-              </div>
+                <h3 className="font-semibold text-white text-sm mb-2">
+                  {area.title}
+                </h3>
+                <p className="text-[#a3a3a3] text-sm leading-relaxed">
+                  {area.description}
+                </p>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

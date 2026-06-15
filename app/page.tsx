@@ -1,10 +1,12 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Practice from "@/components/Practice";
-import Services from "@/components/Services";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+
+const About = dynamic(() => import("@/components/About"));
+const Practice = dynamic(() => import("@/components/Practice"));
+const Process = dynamic(() => import("@/components/Process"));
+const Contact = dynamic(() => import("@/components/Contact"));
+const FloatingWhatsApp = dynamic(() => import("@/components/FloatingWhatsApp"));
 
 export default function Home() {
   return (
@@ -12,7 +14,7 @@ export default function Home() {
       <Hero />
       <About />
       <Practice />
-      <Services />
+      <Process />
       <Contact />
       <Footer />
       <FloatingWhatsApp />

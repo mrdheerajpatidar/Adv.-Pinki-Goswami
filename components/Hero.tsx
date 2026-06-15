@@ -1,55 +1,137 @@
-import { MapPin, MessageCircle, Phone, ChevronDown } from "lucide-react";
+"use client";
+
+import { MessageCircle, Phone, ChevronDown } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
+import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { stats } from "@/lib/constants";
 
 export default function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Parallax effect for background layer
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
+  // Stats counter intersection observer
+  const { ref: statsRef, inView: statsInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.3,
+  });
+
   return (
-    <section className="relative bg-black text-white min-h-screen flex flex-col justify-center pt-16 overflow-hidden">
-      {/* Diagonal texture pattern */}
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col justify-center pt-16 overflow-hidden"
+      style={{ background: "#0a0a0a" }}
+    >
+      {/* Parallax layered background for depth */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{ y: prefersReducedMotion ? 0 : bgY }}
+      >
+        {/* Radial gradient layer */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background:
+              "radial-gradient(ellipse at 70% 20%, rgba(212,175,55,0.15) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(212,175,55,0.08) 0%, transparent 50%)",
+          }}
+        />
+        {/* Diagonal texture pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)",
+            backgroundSize: "20px 20px",
+          }}
+        />
+      </motion.div>
+
+      {/* Gold accent vertical line */}
       <div
-        className="absolute inset-0 opacity-5 pointer-events-none"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)",
-          backgroundSize: "20px 20px",
-        }}
+        className="absolute left-0 top-0 bottom-0 w-1 hidden lg:block"
+        style={{ background: "linear-gradient(to bottom, transparent, #d4af37, transparent)" }}
       />
 
-      {/* Vertical rule accent */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-white hidden lg:block" />
-
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      {/* Content */}
+      <motion.div
+        className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28"
+        variants={prefersReducedMotion ? undefined : staggerContainer}
+        initial={prefersReducedMotion ? undefined : "hidden"}
+        animate={prefersReducedMotion ? undefined : "show"}
+      >
         <div className="max-w-3xl">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 border border-white/20 text-zinc-400 text-xs tracking-widest uppercase px-3 py-1.5 rounded-full mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
-            Criminal Law Specialist · Bar Council of Rajasthan
-          </div>
+          <motion.div
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="inline-flex items-center gap-2 border border-white/20 text-zinc-400 text-xs tracking-widest uppercase px-3 py-1.5 rounded-full mb-8"
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full inline-block"
+              style={{ background: "#d4af37" }}
+            />
+            R/4361/2025 — Bar Council of Rajasthan
+          </motion.div>
 
-          {/* Title */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-4 leading-none">
+          {/* Heading with staggered reveal */}
+          <motion.h1
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-4 leading-none text-white"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
             Advocate
-          </h1>
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-6 leading-none">
+          </motion.h1>
+          <motion.h2
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-6 leading-none"
+            style={{ fontFamily: "var(--font-display)", color: "#d4af37" }}
+          >
             Pinki Goswami
-          </h2>
+          </motion.h2>
 
-          {/* Location */}
-          <div className="flex items-center gap-2 text-zinc-400 text-sm mb-8">
-            <MapPin className="w-4 h-4 flex-shrink-0" />
-            <span>Madhuban Basni, Jodhpur, Rajasthan</span>
-          </div>
+          {/* Decorative gold accent line */}
+          <motion.div
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="w-20 h-0.5 mb-8"
+            style={{ background: "linear-gradient(to right, #d4af37, transparent)" }}
+          />
 
           {/* Description */}
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-xl mb-10">
-            Dedicated criminal defence lawyer providing expert legal counsel at Jodhpur District &amp; Sessions Court. Trusted by clients across Rajasthan for bail, trials, and criminal matters.
-          </p>
+          <motion.p
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="text-zinc-400 text-lg leading-relaxed max-w-xl mb-10"
+          >
+            Dedicated criminal defence lawyer providing expert legal counsel at
+            Jodhpur District &amp; Sessions Court and Rajasthan High Court.
+            Trusted by clients across Rajasthan for bail, trials, and criminal
+            matters.
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <motion.div
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="flex flex-col sm:flex-row gap-4"
+          >
             <a
               href="https://wa.me/917073318678"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-white text-black font-medium px-7 py-3.5 rounded hover:bg-zinc-100 transition-colors duration-200 text-sm"
+              className="inline-flex items-center justify-center gap-2 font-medium px-7 py-3.5 rounded transition-colors duration-200 text-sm text-black"
+              style={{ background: "#d4af37" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = "#e5c76b")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = "#d4af37")
+              }
             >
               <MessageCircle className="w-4 h-4" />
               Chat on WhatsApp
@@ -61,32 +143,35 @@ export default function Hero() {
               <Phone className="w-4 h-4" />
               +91 70733 18678
             </a>
-            <a
-              href="https://maps.google.com/?q=1/35+near+PNB+Bank+Foot+Planet+Madhuban+Basni+Jodhpur"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 border border-white/20 text-zinc-400 font-medium px-7 py-3.5 rounded hover:bg-white/5 transition-colors duration-200 text-sm"
-            >
-              <MapPin className="w-4 h-4" />
-              Get Directions
-            </a>
-          </div>
+          </motion.div>
 
-          {/* Stats row */}
-          <div className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10">
-            {[
-              { value: "10+", label: "Years Experience" },
-              { value: "500+", label: "Cases Handled" },
-              { value: "Jodhpur", label: "High Court" },
-            ].map((s) => (
-              <div key={s.label}>
-                <p className="text-2xl font-semibold text-white">{s.value}</p>
-                <p className="text-xs text-zinc-500 mt-0.5">{s.label}</p>
+          {/* Stats row with animated counters */}
+          <motion.div
+            ref={statsRef}
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10"
+          >
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <p className="text-2xl font-semibold text-white">
+                  {statsInView ? (
+                    <CountUp
+                      end={stat.value}
+                      duration={2.5}
+                      suffix={stat.suffix}
+                    />
+                  ) : (
+                    <span>
+                      0{stat.suffix}
+                    </span>
+                  )}
+                </p>
+                <p className="text-xs text-zinc-500 mt-0.5">{stat.label}</p>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-zinc-600">

@@ -1,133 +1,131 @@
-import { MessageCircle, Phone, MapPin, Link, Clock } from "lucide-react";
+"use client";
 
-const contactItems = [
-  {
-    icon: MessageCircle,
-    label: "WhatsApp",
-    value: "+91 70733 18678",
-    sub: "Preferred mode of contact",
-    href: "https://wa.me/917073318678",
-    cta: "Chat now",
-    highlight: true,
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+91 70733 18678",
-    sub: "Call for urgent matters",
-    href: "tel:+917073318678",
-    cta: "Call now",
-    highlight: false,
-  },
-  {
-    icon: MapPin,
-    label: "Office address",
-    value: "1/35, Near PNB Bank",
-    sub: "Foot Planet, Madhuban Basni, Jodhpur",
-    href: "https://maps.google.com/?q=1/35+near+PNB+Bank+Foot+Planet+Madhuban+Basni+Jodhpur",
-    cta: "Get directions",
-    highlight: false,
-  },
-  {
-    icon: Link,
-    label: "Instagram",
-    value: "@adv_pinki_goswami_jodhpur",
-    sub: "Follow for legal updates",
-    href: "https://www.instagram.com/adv_pinki_goswami_jodhpur",
-    cta: "Follow",
-    highlight: false,
-  },
-];
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  MessageCircle,
+  Phone,
+  MapPin,
+  AtSign,
+  Building,
+  type LucideIcon,
+} from "lucide-react";
+import { contactItems } from "@/lib/constants";
+import { staggerContainer, fadeInUp } from "@/lib/animations";
+
+const iconMap: Record<string, LucideIcon> = {
+  MessageCircle,
+  Phone,
+  MapPin,
+  Instagram: AtSign,
+  Building,
+};
 
 export default function Contact() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <section id="contact" className="bg-black text-white py-20 lg:py-28">
+    <section id="contact" className="bg-[#0a0a0a] py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
         <div className="mb-14">
-          <p className="text-xs tracking-widest uppercase text-zinc-500 mb-4">Contact</p>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-white leading-tight">
-              Reach out directly
-            </h2>
-            <div className="flex items-center gap-2 text-zinc-500 text-sm">
-              <Clock className="w-4 h-4" />
-              <span>Mon – Sat, 9am – 7pm</span>
-            </div>
-          </div>
+          <p className="text-xs tracking-widest uppercase text-[#d4af37] mb-4">
+            Contact
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
+            Get in Touch
+          </h2>
+          <p className="text-[#a3a3a3] text-sm mt-4 max-w-lg">
+            Reach out directly — WhatsApp is the fastest way to connect.
+          </p>
         </div>
 
-        {/* Contact cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+        {/* Contact cards with stagger animation */}
+        <motion.div
+          variants={prefersReducedMotion ? undefined : staggerContainer}
+          initial={prefersReducedMotion ? undefined : "hidden"}
+          whileInView={prefersReducedMotion ? undefined : "show"}
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12"
+        >
           {contactItems.map((item) => {
-            const Icon = item.icon;
+            const Icon = iconMap[item.icon];
+            const isHighlighted = item.highlighted;
+
             return (
-              <a
+              <motion.a
                 key={item.label}
+                variants={prefersReducedMotion ? undefined : fadeInUp}
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex items-start gap-4 p-6 rounded-lg border transition-all duration-200 ${
-                  item.highlight
-                    ? "bg-white text-black border-white hover:bg-zinc-100"
-                    : "bg-zinc-900 text-white border-zinc-800 hover:border-zinc-600"
+                className={`group flex flex-col gap-4 p-6 rounded-lg border transition-all duration-300 ${
+                  isHighlighted
+                    ? "bg-[#d4af37]/10 border-[#d4af37]/50 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] sm:col-span-2 lg:col-span-1"
+                    : "bg-[#1a1a1a] border-white/10 hover:border-white/20"
                 }`}
               >
                 <div
-                  className={`w-10 h-10 rounded-md flex items-center justify-center flex-shrink-0 ${
-                    item.highlight ? "bg-black" : "bg-zinc-800"
+                  className={`w-10 h-10 rounded-md flex items-center justify-center ${
+                    isHighlighted
+                      ? "bg-[#d4af37]/20"
+                      : "bg-white/5"
                   }`}
                 >
-                  <Icon
-                    className={`w-5 h-5 ${item.highlight ? "text-white" : "text-zinc-300"}`}
-                  />
+                  {Icon && (
+                    <Icon
+                      className={`w-5 h-5 ${
+                        isHighlighted ? "text-[#d4af37]" : "text-[#a3a3a3]"
+                      }`}
+                    />
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p
                     className={`text-xs uppercase tracking-widest mb-1 ${
-                      item.highlight ? "text-zinc-500" : "text-zinc-500"
+                      isHighlighted ? "text-[#d4af37]" : "text-[#a3a3a3]"
                     }`}
                   >
                     {item.label}
                   </p>
-                  <p
-                    className={`font-medium text-sm truncate ${
-                      item.highlight ? "text-black" : "text-white"
-                    }`}
-                  >
+                  <p className="font-medium text-white text-sm truncate">
                     {item.value}
                   </p>
-                  <p
-                    className={`text-xs mt-0.5 ${
-                      item.highlight ? "text-zinc-500" : "text-zinc-500"
-                    }`}
-                  >
-                    {item.sub}
+                  <p className="text-[#a3a3a3] text-xs mt-1">
+                    {item.subtext}
                   </p>
                 </div>
                 <span
-                  className={`text-xs font-medium mt-1 group-hover:underline flex-shrink-0 ${
-                    item.highlight ? "text-black" : "text-zinc-400"
+                  className={`text-xs font-medium group-hover:underline ${
+                    isHighlighted
+                      ? "text-[#d4af37]"
+                      : "text-[#a3a3a3] group-hover:text-white"
                   }`}
                 >
                   {item.cta} →
                 </span>
-              </a>
+              </motion.a>
             );
           })}
-        </div>
+        </motion.div>
 
-        {/* Map embed placeholder */}
-        <div className="rounded-lg overflow-hidden border border-zinc-800">
+        {/* Google Maps embed with grayscale filter */}
+        <motion.div
+          variants={prefersReducedMotion ? undefined : fadeInUp}
+          initial={prefersReducedMotion ? undefined : "hidden"}
+          whileInView={prefersReducedMotion ? undefined : "show"}
+          viewport={{ once: true }}
+          className="rounded-lg overflow-hidden border border-white/10"
+        >
           <iframe
             title="Office Location"
             src="https://maps.google.com/maps?q=Madhuban+Basni+Jodhpur+Rajasthan&output=embed"
             width="100%"
             height="300"
-            className="w-full grayscale opacity-80"
+            className="w-full grayscale opacity-60"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
