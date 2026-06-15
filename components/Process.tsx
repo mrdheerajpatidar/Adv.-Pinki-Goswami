@@ -78,7 +78,7 @@ export default function Process() {
           <p className="text-xs tracking-widest uppercase text-[#d4af37] mb-4">
             How It Works
           </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-white leading-tight font-[family-name:var(--font-display)]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white leading-tight font-[family-name:var(--font-display)]">
             Our Process
           </h2>
           <p className="text-[#a3a3a3] text-sm sm:text-base mt-4 max-w-lg mx-auto">

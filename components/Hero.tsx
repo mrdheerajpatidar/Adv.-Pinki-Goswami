@@ -84,14 +84,14 @@ export default function Hero() {
           {/* Heading with staggered reveal */}
           <motion.h1
             variants={prefersReducedMotion ? undefined : fadeInUp}
-            className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-4 leading-none text-white"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight mb-4 leading-none text-white"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Advocate
           </motion.h1>
           <motion.h2
             variants={prefersReducedMotion ? undefined : fadeInUp}
-            className="text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-6 leading-none"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight mb-6 leading-none"
             style={{ fontFamily: "var(--font-display)", color: "#d4af37" }}
           >
             Pinki Goswami
@@ -100,14 +100,23 @@ export default function Hero() {
           {/* Decorative gold accent line */}
           <motion.div
             variants={prefersReducedMotion ? undefined : fadeInUp}
-            className="w-20 h-0.5 mb-8"
+            className="w-20 h-0.5 mb-6"
             style={{ background: "linear-gradient(to right, #d4af37, transparent)" }}
           />
+
+          {/* Rajasthan High Court highlight */}
+          <motion.div
+            variants={prefersReducedMotion ? undefined : fadeInUp}
+            className="inline-flex items-center gap-2 bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#d4af37] text-sm font-medium px-4 py-2 rounded-lg mb-8"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
+            Rajasthan High Court – Jodhpur
+          </motion.div>
 
           {/* Description */}
           <motion.p
             variants={prefersReducedMotion ? undefined : fadeInUp}
-            className="text-zinc-400 text-lg leading-relaxed max-w-xl mb-10"
+            className="text-zinc-400 text-base sm:text-lg leading-relaxed max-w-xl mb-10"
           >
             Dedicated criminal defence lawyer providing expert legal counsel at
             Jodhpur District &amp; Sessions Court and Rajasthan High Court.
@@ -149,7 +158,7 @@ export default function Hero() {
           <motion.div
             ref={statsRef}
             variants={prefersReducedMotion ? undefined : fadeInUp}
-            className="flex flex-wrap gap-8 mt-16 pt-8 border-t border-white/10"
+            className="flex flex-wrap gap-6 sm:gap-8 mt-12 sm:mt-16 pt-8 border-t border-white/10"
           >
             {stats.map((stat) => (
               <div key={stat.label}>

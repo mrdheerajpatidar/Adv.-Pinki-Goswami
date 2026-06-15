@@ -36,7 +36,7 @@ export default function Practice() {
           <p className="text-xs tracking-widest uppercase text-[#d4af37] mb-4">
             Areas of Practice
           </p>
-          <h2 className="text-3xl sm:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
             Comprehensive Legal Services
           </h2>
           <p className="text-[#a3a3a3] text-sm mt-4 max-w-lg mx-auto">
@@ -49,7 +49,7 @@ export default function Practice() {
           initial={prefersReducedMotion ? undefined : "hidden"}
           whileInView={prefersReducedMotion ? undefined : "show"}
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
         >
           {practiceAreas.map((area, i) => {
             const Icon = iconMap[area.icon];

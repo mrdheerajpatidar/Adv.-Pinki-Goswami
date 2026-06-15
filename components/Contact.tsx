@@ -31,7 +31,7 @@ export default function Contact() {
           <p className="text-xs tracking-widest uppercase text-[#d4af37] mb-4">
             Contact
           </p>
-          <h2 className="text-3xl sm:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
             Get in Touch
           </h2>
           <p className="text-[#a3a3a3] text-sm mt-4 max-w-lg">
@@ -45,7 +45,7 @@ export default function Contact() {
           initial={prefersReducedMotion ? undefined : "hidden"}
           whileInView={prefersReducedMotion ? undefined : "show"}
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-12"
         >
           {contactItems.map((item) => {
             const Icon = iconMap[item.icon];
@@ -58,9 +58,9 @@ export default function Contact() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex flex-col gap-4 p-6 rounded-lg border transition-all duration-300 ${
+                className={`group flex flex-col gap-4 p-5 sm:p-6 rounded-lg border transition-all duration-300 ${
                   isHighlighted
-                    ? "bg-[#d4af37]/10 border-[#d4af37]/50 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] sm:col-span-2 lg:col-span-1"
+                    ? "bg-[#d4af37]/10 border-[#d4af37]/50 hover:border-[#d4af37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
                     : "bg-[#1a1a1a] border-white/10 hover:border-white/20"
                 }`}
               >

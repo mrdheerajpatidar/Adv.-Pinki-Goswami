@@ -16,12 +16,12 @@ export default function About() {
           <p className="text-xs tracking-widest uppercase text-[#d4af37] mb-4">
             About
           </p>
-          <h2 className="text-3xl sm:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-[var(--font-display)] font-semibold text-white leading-tight">
             Experienced Criminal Defence Lawyer
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Left — Photo with gold frame */}
           <motion.div
             variants={prefersReducedMotion ? undefined : fadeInLeft}
@@ -41,7 +41,7 @@ export default function About() {
                   alt="Advocate Pinki Goswami"
                   width={500}
                   height={600}
-                  className="rounded-lg object-cover w-full max-w-[500px]"
+                  className="rounded-lg object-cover w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[500px]"
                   loading="lazy"
                 />
               </div>
